@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class UsuarioHelper {
   static final UsuarioHelper _instance = UsuarioHelper.internal();
-  String url = "http://localhost:3000/api";
+  String url = "http://192.168.1.86:3000/api";
 
   factory UsuarioHelper() => _instance;
 
@@ -25,7 +25,7 @@ class UsuarioHelper {
     http.Response response;
 
     response = await http.post(url + "/v1/usuario/login",
-        headers: {"Content-Type": "application/json"}, body: dados);
+        headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: dados);
 
     if (response.statusCode == 200) {
       return json.decode(response.body);

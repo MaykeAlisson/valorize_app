@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:valoriza_app/helpers/lancamento_helper.dart';
+import 'package:valoriza_app/helpers/usuario_helper.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   LancamentoHelper lancamentoHelper = LancamentoHelper();
+  UsuarioHelper usuarioHelper = UsuarioHelper();
 
 
   @override
@@ -19,9 +21,16 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    var dados = {
+      "email": "maykealison@gmail.com",
+      "senha": "123456"
+    };
 
-    lancamentoHelper.getAllLancamento().then((map){
-      print(map);
+    usuarioHelper.login(dados).then((res){
+      print(res);
     });
+//    lancamentoHelper.getAllLancamento().then((map){
+//      print(map);
+//    });
   }
 }
