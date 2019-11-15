@@ -14,7 +14,7 @@ class UsuarioHelper {
     http.Response response;
 
     response = await http.post(url + "/v1/usuario/cadastro",
-        headers: {"Content-Type": "application/json"}, body: dados);
+        headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: dados);
 
     if (response.statusCode == 201) return true;
 
