@@ -14,7 +14,8 @@ class UsuarioHelper {
     http.Response response;
 
     response = await http.post(url + "/v1/usuario/cadastro",
-        headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: dados);
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: dados);
 
     if (response.statusCode == 201) return true;
 
@@ -25,13 +26,26 @@ class UsuarioHelper {
     http.Response response;
 
     response = await http.post(url + "/v1/usuario/login",
-        headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: dados);
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: dados);
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
     }
 
     return null;
+  }
+
+  Future<bool> update(dados) async {
+    http.Response response;
+
+    response = await http.post(url + "/v1/usuario/atualiza",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: dados);
+
+    if (response.statusCode == 200) return true;
+
+    return false;
   }
 }
 
