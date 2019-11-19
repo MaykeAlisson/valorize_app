@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:valoriza_app/helpers/categoria_helper.dart';
 import 'package:valoriza_app/helpers/lancamento_helper.dart';
 import 'package:valoriza_app/helpers/usuario_helper.dart';
 
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   LancamentoHelper lancamentoHelper = LancamentoHelper();
   UsuarioHelper usuarioHelper = UsuarioHelper();
+  CategoriaHelper categoriaHelper = CategoriaHelper();
 
 
   @override
@@ -36,10 +38,19 @@ class _HomePageState extends State<HomePage> {
       "senha": "123456"
     };
 
+    var categoria = {
+      "descricao": "Enterterimento",
+      "operacao": "DEBIT"
+    };
+    
+//    categoriaHelper.save(categoria).then((res){
+//      print(res);
+//    });
 
-    usuarioHelper.save(dados2).then((res){
-      print(res);
-    });
+
+//    usuarioHelper.save(dados2).then((res){
+//      print(res);
+//    });
 //    lancamentoHelper.getAllLancamento().then((map){
 //      print(map);
 //    });
