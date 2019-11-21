@@ -6,8 +6,7 @@ class LancamentoHelper {
   static final LancamentoHelper _instance = LancamentoHelper.internal();
   String url = "http://192.168.100.40:3000/api";
   final String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoxLCJub21lIjoiTWF5a2UgQWxpc3NvbiJ9LCJpYXQiOjE1NzQyNTM2OTIsImV4cCI6MTU3NDI5Njg5Mn0.lOYIr3yk4f814iBVizuR7HJNEaXcqsM_lit7E5pd5Os";
-
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoxLCJub21lIjoiTWF5a2UgQWxpc3NvbiJ9LCJpYXQiOjE1NzQzNDkwMDUsImV4cCI6MTU3NDM5MjIwNX0.NCaqbXlrmGdP-C-HpvR3nlm8JS_Efyq2m_EJQLdsDRM";
   factory LancamentoHelper() => _instance;
 
   LancamentoHelper.internal();
@@ -35,13 +34,18 @@ class LancamentoHelper {
         },
         body: dados);
 
+    print(response.body);
+    print(response.request);
+    print(response.request.headers);
     if (response.statusCode == 201) return true;
 
     return false;
   }
 
-  Future<bool> delete(dados) async {
+  Future<bool> deletaPorId(dados) async {
     http.Response response;
+
+    print(dados);
 
     response = await http.post(url + "/v1/lancamento/deleta",
         headers: {
@@ -50,10 +54,12 @@ class LancamentoHelper {
         },
         body: dados);
 
-    if (response.statusCode == 200) return true;
+    if (response.statusCode == 201) return true;
+
 
     return false;
   }
+
 
   Future<bool> update(dados) async {
     http.Response response;

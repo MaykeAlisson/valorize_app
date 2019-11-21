@@ -86,6 +86,60 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      onTap: () {
+        _showOptions(context, index);
+      },
+    );
+  }
+
+  void _showOptions(BuildContext context, int index){
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return BottomSheet(
+            onClosing: (){},
+            builder: (context){
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: FlatButton(
+                        child: Text('Editar',
+                        style: TextStyle(color: Colors.black, fontSize: 15.0),
+                        ),
+                        onPressed: (){
+                          Navigator.pop(context);
+
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: FlatButton(
+                        child: Text('Excluir',
+                          style: TextStyle(color: Colors.black, fontSize: 15.0),
+                        ),
+                        onPressed: (){
+                         Map<String, String> jsonForm = {
+                           "id": lancamentos[index]['id'].toString()
+                         };
+                          lancamentoHelper.deletaPorId(jsonForm);
+                          setState(() {
+                            lancamentos.removeAt(index);
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
     );
   }
 
