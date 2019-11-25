@@ -2,11 +2,20 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+final String idColunm = "idColunm";
+final String valorColunm = "valorColunm";
+final String diaColunm = "diaColunm";
+final String descricaoColunm = "descricaoColunm";
+final String tagsColunm = "tagsColunm";
+final String noteColunm = "noteColunm";
+final String idContaColunm = "idContaColunm";
+final String idCategoriaColunm = "idCategoriaColunm";
+
 class LancamentoHelper {
   static final LancamentoHelper _instance = LancamentoHelper.internal();
   String url = "http://192.168.100.40:3000/api";
   final String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoxLCJub21lIjoiTWF5a2UgQWxpc3NvbiJ9LCJpYXQiOjE1NzQzNDkwMDUsImV4cCI6MTU3NDM5MjIwNX0.NCaqbXlrmGdP-C-HpvR3nlm8JS_Efyq2m_EJQLdsDRM";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoxLCJub21lIjoiTWF5a2UgQWxpc3NvbiJ9LCJpYXQiOjE1NzQ0NDc1NDMsImV4cCI6MTU3NDQ5MDc0M30.PRGteR3s20f8fGSCE9LPgaQpnoLXn3MlQFkpLTnwAPE";
   factory LancamentoHelper() => _instance;
 
   LancamentoHelper.internal();
@@ -34,9 +43,6 @@ class LancamentoHelper {
         },
         body: dados);
 
-    print(response.body);
-    print(response.request);
-    print(response.request.headers);
     if (response.statusCode == 201) return true;
 
     return false;
@@ -44,8 +50,6 @@ class LancamentoHelper {
 
   Future<bool> deletaPorId(dados) async {
     http.Response response;
-
-    print(dados);
 
     response = await http.post(url + "/v1/lancamento/deleta",
         headers: {
@@ -75,4 +79,45 @@ class LancamentoHelper {
 
     return false;
   }
+}
+
+class Lancamento {
+  String id;
+  String valor;
+  String dia;
+  String descricao;
+  String tags;
+  String note;
+  String idConta;
+  String idCategoria;
+
+  Lancamento();
+
+  Lancamento.fromMap(lancamento){
+    id = lancamento[id];
+    valor = lancamento[valor];
+    dia = lancamento[dia];
+    descricao = lancamento[descricao];
+    tags = lancamento[tags];
+    note = lancamento[note;
+    idConta = lancamento[idConta];
+    idCategoria = lancamento[idCategoria];
+  }
+
+//  Map toMap(){
+//    Map<String, dynamic> map = {
+//      valorColunm = valor,
+//      diaColunm = dia,
+//      descricaoColunm = descricao,
+//      tagsColunm = tags,
+//      noteColunm = note,
+//      idContaColunm = idConta,
+//      idCategoriaColunm = idCategoria
+//    };
+//  if(id != null){
+//    map[idColunm] = id;
+//  }
+//  return map;
+//  }
+
 }

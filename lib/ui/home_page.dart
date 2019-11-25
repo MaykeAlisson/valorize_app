@@ -6,6 +6,8 @@ import 'package:valoriza_app/helpers/conta_helper.dart';
 import 'package:valoriza_app/helpers/lancamento_helper.dart';
 import 'package:valoriza_app/helpers/usuario_helper.dart';
 
+import 'lancamento_page.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _getAllLancamentos();
+      _getAllLancamentos();
   }
 
   @override
@@ -34,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.lightBlueAccent,
         centerTitle: true,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.amber[50],
       floatingActionButton: FloatingActionButton(
         onPressed: (){
 
@@ -42,13 +44,39 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
         backgroundColor: Colors.black,
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.all(10.0),
-          itemCount: lancamentos.length,
-          itemBuilder: (context, index) {
-          return _lancamentoCard(context, index);
-          }
-      ),
+      body: FutureBuilder(
+          future: lancamentoHelper.getAllLancamento(),
+          builder: (context, snapshot){
+            switch(snapshot.connectionState){
+              case ConnectionState.waiting:
+              case ConnectionState.none:
+                return Container(
+                  width: 500.0,
+                  height: 500.0,
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                    strokeWidth: 8.0,
+                  ),
+                );
+              default:
+                if(snapshot.hasError) {
+                  return Container();
+                }else {
+                  if(lancamentos == null){
+                    return Container();
+                  }
+                  return ListView.builder(
+                      padding: EdgeInsets.all(10.0),
+                      itemCount: lancamentos.length,
+                      itemBuilder: (context, index) {
+                        return _lancamentoCard(context, index);
+                      }
+                  );
+                }
+            }
+          },
+        ),
     );
   }
 
@@ -112,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         onPressed: (){
                           Navigator.pop(context);
-
+                          _showLancamentoPage(lancamento: lancamentos[index]);
                         },
                       ),
                     ),
@@ -143,6 +171,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _showLancamentoPage({Lancamento lancamento}) async{
+    final recLancamento = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => LancamentoPage(lancamento: lancamento)));
+  }
 
   void _getAllLancamentos(){
     lancamentoHelper.getAllLancamento()
