@@ -174,6 +174,12 @@ class _HomePageState extends State<HomePage> {
   void _showLancamentoPage({Lancamento lancamento}) async{
     final recLancamento = await Navigator.push(context,
         MaterialPageRoute(builder: (context) => LancamentoPage(lancamento: lancamento)));
+    if(recLancamento != null){
+      await lancamentoHelper.update(recLancamento);
+    }else{
+      await lancamentoHelper.save(recLancamento);
+    }
+    _getAllLancamentos();
   }
 
   void _getAllLancamentos(){

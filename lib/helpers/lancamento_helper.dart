@@ -99,7 +99,7 @@ class Lancamento {
     dia = lancamento[dia];
     descricao = lancamento[descricao];
     tags = lancamento[tags];
-    note = lancamento[note;
+    note = lancamento[note];
     idConta = lancamento[idConta];
     idCategoria = lancamento[idCategoria];
   }
