@@ -15,7 +15,8 @@ class LancamentoHelper {
   static final LancamentoHelper _instance = LancamentoHelper.internal();
   String url = "http://192.168.100.40:3000/api";
   final String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoxLCJub21lIjoiTWF5a2UgQWxpc3NvbiJ9LCJpYXQiOjE1NzQ0NDc1NDMsImV4cCI6MTU3NDQ5MDc0M30.PRGteR3s20f8fGSCE9LPgaQpnoLXn3MlQFkpLTnwAPE";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoxLCJub21lIjoiTWF5a2UgQWxpc3NvbiJ9LCJpYXQiOjE1NzQ4NDA4NjEsImV4cCI6MTU3NDg4NDA2MX0.jPPwvhwc45O94FV_ACZWBGorYLMN2njWzn9oFYGEvlA";
+
   factory LancamentoHelper() => _instance;
 
   LancamentoHelper.internal();
@@ -60,10 +61,8 @@ class LancamentoHelper {
 
     if (response.statusCode == 201) return true;
 
-
     return false;
   }
-
 
   Future<bool> update(dados) async {
     http.Response response;
@@ -93,7 +92,7 @@ class Lancamento {
 
   Lancamento();
 
-  Lancamento.fromMap(lancamento){
+  Lancamento.fromMap(lancamento) {
     id = lancamento[id];
     valor = lancamento[valor];
     dia = lancamento[dia];

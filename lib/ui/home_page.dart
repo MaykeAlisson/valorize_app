@@ -61,7 +61,9 @@ class _HomePageState extends State<HomePage> {
                 );
               default:
                 if(snapshot.hasError) {
-                  return Container();
+                  return Container(
+                    child: Text(snapshot.error.toString()),
+                  );
                 }else {
                   if(lancamentos == null){
                     return Container();
